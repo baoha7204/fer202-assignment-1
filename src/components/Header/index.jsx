@@ -2,15 +2,17 @@ import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useLogout from "../../hooks/useLogout";
 
 const pages = [
   { page: "Home", link: "/" },
   { page: "Login", link: "/login" },
-  { page: "Logout", link: "/logout" },
 ];
 
 const Header = () => {
   const { auth } = useAuth();
+  const isAuth = Boolean(auth?.user);
+  const logout = useLogout();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -25,10 +27,7 @@ const Header = () => {
           </IconButton>
           <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "right" }}>
             {pages.map((page) => {
-              if (page.page === "Logout" && !auth?.user) {
-                return null;
-              }
-              if (page.page === "Login" && auth?.user) {
+              if (page.page === "Login" && isAuth) {
                 return null;
               }
               return (
@@ -42,6 +41,14 @@ const Header = () => {
                 </Button>
               );
             })}
+            {isAuth && (
+              <Button
+                sx={{ color: (theme) => theme.palette.secondary.main }}
+                onClick={() => logout()}
+              >
+                Logout
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
