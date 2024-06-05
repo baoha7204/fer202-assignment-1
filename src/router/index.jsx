@@ -27,10 +27,10 @@ const RouterComponent = () => {
               children: [
                 {
                   index: true,
-                  element: <h1>Admin</h1>,
+                  element: <HomePage />,
                 },
                 {
-                  path: "courses",
+                  path: "edit/:id",
                   element: <h1>Hi</h1>,
                 },
               ],
