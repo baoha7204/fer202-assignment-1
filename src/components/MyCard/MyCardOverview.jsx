@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Button,
   Card,
@@ -11,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useDeleteCourse from "../../hooks/useDeleteCourse";
 
-// eslint-disable-next-line react/prop-types
-const MyCardOverview = ({ id, image, title, onOpen }) => {
+const MyCardOverview = ({ course, onOpen, onDeleteCourse }) => {
+  const { id, title, image } = course;
   const navigate = useNavigate();
   const { auth } = useAuth();
   const deleteCourse = useDeleteCourse();
@@ -62,7 +63,7 @@ const MyCardOverview = ({ id, image, title, onOpen }) => {
               fontWeight: 800,
               backgroundColor: "secondary.main",
             }}
-            onClick={() => navigate(`edit/${id}`)}
+            onClick={() => navigate("/admin/edit", { state: course })}
           >
             Edit
           </Button>
@@ -80,7 +81,10 @@ const MyCardOverview = ({ id, image, title, onOpen }) => {
                 backgroundColor: "text.primary",
               },
             }}
-            onClick={() => deleteCourse(id)}
+            onClick={() => {
+              deleteCourse(id);
+              onDeleteCourse(id);
+            }}
           >
             Delete
           </Button>

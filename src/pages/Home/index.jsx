@@ -5,7 +5,7 @@ import MyCardOverview from "../../components/MyCard/MyCardOverview";
 import useFetchCourses from "../../hooks/useFetchCourses";
 
 const HomePage = () => {
-  const courses = useFetchCourses();
+  const { courses, handleDeleteCourse } = useFetchCourses();
   const { detail, open, openModal, closeModal } = useModal();
 
   return (
@@ -19,7 +19,11 @@ const HomePage = () => {
           lg={3}
           sx={{ display: "flex", justifyContent: "center" }}
         >
-          <MyCardOverview onOpen={openModal} {...course} />
+          <MyCardOverview
+            onOpen={openModal}
+            course={course}
+            onDeleteCourse={handleDeleteCourse}
+          />
         </Grid>
       ))}
       {open && detail && (

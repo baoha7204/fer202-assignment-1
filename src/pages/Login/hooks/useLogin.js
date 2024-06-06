@@ -19,7 +19,7 @@ export default function useLogin() {
     handleSubmit,
     reset,
     control,
-    formState: { errors, isSubmitSuccessful, isSubmitting },
+    formState: { isSubmitSuccessful, isSubmitting },
   } = useForm({
     resolver: zodResolver(LoginFormSchema),
   });
@@ -62,15 +62,6 @@ export default function useLogin() {
       reset();
     }
   };
-
-  useEffect(() => {
-    if (errors?.user?.message) {
-      toastError(errors.user.message);
-    }
-    if (errors?.password?.message) {
-      toastError(errors.password.message);
-    }
-  }, [errors]);
 
   return [handleSubmit(onSubmit), isSubmitting, control];
 }

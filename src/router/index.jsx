@@ -5,6 +5,7 @@ import LoginForm from "../pages/Login/LoginForm";
 import HomePage from "../pages/Home";
 import DefaultLayout from "../components/Layout/DefaultLayout";
 import RequireAuth from "../components/Auth/RequireAuth";
+import EditForm from "../pages/Edit/EditForm";
 
 const RouterComponent = () => {
   const router = createBrowserRouter([
@@ -30,8 +31,12 @@ const RouterComponent = () => {
                   element: <HomePage />,
                 },
                 {
-                  path: "edit/:id",
-                  element: <h1>Hi</h1>,
+                  path: "edit",
+                  element: <EditForm />,
+                },
+                {
+                  path: "create",
+                  element: <EditForm />,
                 },
               ],
             },

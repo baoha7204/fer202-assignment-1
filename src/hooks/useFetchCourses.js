@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../utils/api";
 import axios from "../config/axios";
 import { errorToastHandler } from "../utils/toast/actions";
+import useAuth from "./useAuth";
 
 const useFetchCourses = () => {
+  const { auth } = useAuth();
   const [courses, setCourses] = useState([]);
+
+  const handleDeleteCourse = (id) => {
+    const newCourses = courses.filter((course) => course.id !== id);
+    setCourses(newCourses);
+  };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -20,6 +27,9 @@ const useFetchCourses = () => {
             message: "No courses found",
           });
         }
+        if (auth?.user) {
+          return setCourses(data);
+        }
         const fileteredData = data.filter((course) => course.active);
         setCourses(fileteredData);
       } catch (error) {
@@ -30,9 +40,9 @@ const useFetchCourses = () => {
     fetchRemote();
 
     return () => controller.abort();
-  }, []);
+  }, [auth?.user]);
 
-  return courses;
+  return { courses, handleDeleteCourse };
 };
 
 export default useFetchCourses;

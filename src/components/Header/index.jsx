@@ -1,6 +1,6 @@
 import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
 
@@ -10,6 +10,7 @@ const pages = [
 ];
 
 const Header = () => {
+  const navigate = useNavigate();
   const { auth } = useAuth();
   const isAuth = Boolean(auth?.user);
   const logout = useLogout();
@@ -42,12 +43,20 @@ const Header = () => {
               );
             })}
             {isAuth && (
-              <Button
-                sx={{ color: (theme) => theme.palette.secondary.main }}
-                onClick={() => logout()}
-              >
-                Logout
-              </Button>
+              <>
+                <Button
+                  sx={{ color: (theme) => theme.palette.secondary.main }}
+                  onClick={() => navigate("/admin/create")}
+                >
+                  Create course
+                </Button>
+                <Button
+                  sx={{ color: (theme) => theme.palette.secondary.main }}
+                  onClick={() => logout()}
+                >
+                  Logout
+                </Button>
+              </>
             )}
           </Box>
         </Toolbar>

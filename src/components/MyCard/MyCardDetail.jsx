@@ -5,6 +5,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import dayjs from "dayjs";
 
 // eslint-disable-next-line react/prop-types
 const MyCardDetail = ({ image, title, description, weeks, date }) => {
@@ -37,7 +38,7 @@ const MyCardDetail = ({ image, title, description, weeks, date }) => {
             {weeks} weeks
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {date}
+            {dayjs(date).format("MM/DD/YYYY")}
           </Typography>
         </CardContent>
       </CardActionArea>

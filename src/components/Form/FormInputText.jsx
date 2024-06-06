@@ -7,7 +7,7 @@ import { STRING_EMPTY } from "../../constant/core";
 const FormInputText = ({ name, control, isPassword = false, ...rest }) => {
   return (
     <Controller
-      name={name || "password"}
+      name={name}
       control={control}
       render={({ field: { onChange, value }, fieldState: { error } }) =>
         isPassword ? (
